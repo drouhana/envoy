@@ -1,6 +1,6 @@
 # This should match the schema defined in external_deps.bzl.
 
-PROTOBUF_VERSION = "3.19.4"
+PROTOBUF_VERSION = "3.20.1"
 
 # These names of these deps *must* match the names used in `/bazel/protobuf.patch`,
 # and both must match the names from the protobuf releases (see
@@ -8,10 +8,14 @@ PROTOBUF_VERSION = "3.19.4"
 # The names change in upcoming versions.
 # The shas are calculated from the downloads on the releases page.
 PROTOC_VERSIONS = dict(
-    linux_aarch_64 = "95584939e733bdd6ffb8245616b2071f565cd4c28163b6c21c8f936a9ee20861",
-    linux_x86_64 = "058d29255a08f8661c8096c92961f3676218704cbd516d3916ec468e139cbd87",
-    osx_x86_64 = "d8b55cf1e887917dd43c447d77bd5bd213faff1e18ac3a176b35558d86f7ffff",
-    win64 = "828d2bdfe410e988cfc46462bcabd34ffdda8cc172867989ec647eadc55b03b5",
+    linux_aarch_64 = "8a5a51876259f934cd2acc2bc59dba0e9a51bd631a5c37a4b9081d6e4dbc7591",
+    #"95584939e733bdd6ffb8245616b2071f565cd4c28163b6c21c8f936a9ee20861",
+    linux_x86_64 = "3a0e900f9556fbcac4c3a913a00d07680f0fdf6b990a341462d822247b265562",
+    #"058d29255a08f8661c8096c92961f3676218704cbd516d3916ec468e139cbd87",
+    osx_x86_64 = "b4f36b18202d54d343a66eebc9f8ae60809a2a96cc2d1b378137550bbe4cf33c",
+    #"d8b55cf1e887917dd43c447d77bd5bd213faff1e18ac3a176b35558d86f7ffff",
+    win64 = "897bf86b9c989f91c4171c7f99e3886fedfceb077a94dd150f1401cfe922cd46",
+    #"828d2bdfe410e988cfc46462bcabd34ffdda8cc172867989ec647eadc55b03b5",
 )
 
 REPOSITORY_LOCATIONS_SPEC = dict(
@@ -89,19 +93,21 @@ REPOSITORY_LOCATIONS_SPEC = dict(
     boringssl = dict(
         project_name = "BoringSSL",
         project_desc = "Minimal OpenSSL fork",
-        project_url = "https://github.com/google/boringssl",
+        project_url = "https://github.com/drouhana/boringssl",
         # To update BoringSSL, which tracks Chromium releases:
         # 1. Open https://omahaproxy.appspot.com/ and note <current_version> of linux/beta release.
         # 2. Open https://chromium.googlesource.com/chromium/src/+/refs/tags/<current_version>/DEPS and note <boringssl_revision>.
         # 3. Find a commit in BoringSSL's "master-with-bazel" branch that merges <boringssl_revision>.
         #
         # chromium-103.0.5060.24 (linux/beta)
-        version = "62079f7cb4e9a2d5d8a68fe8a4a3f2375dd53585",
-        sha256 = "770faf8dcea0c2872e0c8202fc0d71f5b623c71510d1fa580ab271d2de7e72a9",
+        version = "298fdb21fb4ceb969698cbceb743d994935e4ff5",
+        #"62079f7cb4e9a2d5d8a68fe8a4a3f2375dd53585",
+        sha256 = "908b0fc371460f7e9a4bd0579877056f40eb589b2683c84d160bcf6d73cf44c3",
+        #"770faf8dcea0c2872e0c8202fc0d71f5b623c71510d1fa580ab271d2de7e72a9",
         strip_prefix = "boringssl-{version}",
-        urls = ["https://github.com/google/boringssl/archive/{version}.tar.gz"],
+        urls = ["https://github.com/drouhana/boringssl/archive/{version}.tar.gz"],
         use_category = ["controlplane", "dataplane_core"],
-        release_date = "2022-05-10",
+        release_date = "2022-08-18",
         cpe = "cpe:2.3:a:google:boringssl:*",
     ),
     boringssl_fips = dict(
@@ -713,11 +719,12 @@ REPOSITORY_LOCATIONS_SPEC = dict(
         # test/common/json:gen_excluded_unicodes to recompute the ranges
         # excluded from differential fuzzing that are populated in
         # test/common/json/json_sanitizer_test_util.cc.
-        sha256 = "ba0650be1b169d24908eeddbe6107f011d8df0da5b1a5a4449a913b10e578faf",
+        sha256 = "3a400163728db996e8e8d21c7dfb3c239df54d0813270f086c4030addeae2fad",
+        #"ba0650be1b169d24908eeddbe6107f011d8df0da5b1a5a4449a913b10e578faf",
         strip_prefix = "protobuf-{version}",
         urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protobuf-all-{version}.tar.gz"],
         use_category = ["dataplane_core", "controlplane"],
-        release_date = "2022-01-28",
+        release_date = "2022-04-22",
         cpe = "cpe:2.3:a:google:protobuf:*",
     ),
     grpc_httpjson_transcoding = dict(
@@ -959,8 +966,14 @@ REPOSITORY_LOCATIONS_SPEC = dict(
         project_name = "Common Expression Language (CEL) C++ library",
         project_desc = "Common Expression Language (CEL) C++ library",
         project_url = "https://opensource.google/projects/cel",
+        # https://github.com/envoyproxy/envoy/pull/22935/files
+        # https://github.com/antlr/antlr4/issues/3854
         version = "1adb61321cf1975bee8e1df3300984166f45cb1d",
+        # new: "11f9d662e71f73b28f4104ef2cf0550d96e677ae",
+        # old: "1adb61321cf1975bee8e1df3300984166f45cb1d",
         sha256 = "32b57e5c8b6ad95e58cf2fc7d2ac8a79f106ddb88285d06974ef62b1474594b7",
+        # new: "3d00e3fa9def360da18ccd077f261c1dea2f725c046692cc55ecc4d3b15bb390",
+        # old: "32b57e5c8b6ad95e58cf2fc7d2ac8a79f106ddb88285d06974ef62b1474594b7",
         strip_prefix = "cel-cpp-{version}",
         urls = ["https://github.com/google/cel-cpp/archive/{version}.tar.gz"],
         use_category = ["dataplane_ext"],
@@ -976,7 +989,7 @@ REPOSITORY_LOCATIONS_SPEC = dict(
             "envoy.stat_sinks.wasm",
             "envoy.rbac.matchers.upstream_ip_port",
         ],
-        release_date = "2022-06-02",
+        release_date = "2022-09-01",
         cpe = "N/A",
     ),
     com_github_google_flatbuffers = dict(
@@ -1212,7 +1225,7 @@ def _compiled_protoc_deps(locations, versions):
             sha256 = sha,
             urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-%s.zip" % platform.replace("_", "-", 1)],
             use_category = ["dataplane_core", "controlplane"],
-            release_date = "2022-01-28",
+            release_date = "2022-04-22",
             cpe = "N/A",
         )
 

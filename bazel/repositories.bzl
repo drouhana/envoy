@@ -264,7 +264,8 @@ def _boringssl():
     external_http_archive(
         name = "boringssl",
         patch_args = ["-p1"],
-        patches = ["@envoy//bazel:boringssl_static.patch"],
+        patches = [],
+        #patches = ["@envoy//bazel:boringssl_static.patch"],
     )
 
 def _boringssl_fips():
